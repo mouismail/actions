@@ -1,7 +1,7 @@
 name: Change Repository Visibility
 description: Issue to request a change in repository visibility
 title: "[Change Repository Visibility]: organization_name/repository_name"
-labels: ["triage","governance"]
+labels: [":pencil2: request",":white_check_mark: todo"]
 assignees:
   - mouismail
 body:
