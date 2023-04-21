@@ -6,7 +6,7 @@ on:
       - created
   issues:
     types:
-      - created
+      - opened
 
 env:
   REPO_NAME: "your-repo-name" # Replace with your actual repo name
