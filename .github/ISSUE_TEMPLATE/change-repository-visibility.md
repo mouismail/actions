@@ -3,7 +3,7 @@ description: Nomination form for customers interested in migrating from BitBucke
 title: "[Change Repository Visibility]: organization_name/repository_name"
 labels: ["triage","governance"]
 assignees:
-  - timrogers
+  - mouismail
 body:
   - type: markdown
     attributes:
