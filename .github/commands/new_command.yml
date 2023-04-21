@@ -1,0 +1,51 @@
+# Learn more about the syntax here:
+# https://docs.github.com/en/early-access/github/save-time-with-slash-commands/syntax-for-user-defined-slash-commands
+---
+trigger: repo_visibility
+title: Change Repository Visibility
+# Works everywhere by default. Uncomment to limit it to certain surfaces.
+surfaces:
+  - issue
+#   - pull_request
+#   - discussions
+description: Form to request a change in repository visibility
+
+# Each command has one or more steps. You can add up to 25 steps.
+steps:
+  # This displays a menu, similar to typing `@`.
+  - type: menu
+    id: visibility
+    label: Options
+    options:
+      - Private
+      - Internal
+      - Public
+  # This displays a form with a dropdown, text input, and markdown editor.
+  - type: form
+    style: modal
+    body:
+      - type: dropdown
+        attributes:
+          label: Priority
+          options:
+          - label: "🟢 Normal"
+          - label: "⚠️ Important"
+          - label: "💥 Emergency"
+      - type: input
+        attributes:
+          label: org
+          format: text
+      - type: input
+        attributes:
+          label: repo
+          format: text
+      - type: textarea
+        attributes:
+          label: justification
+          placeholder: justification for changing the repository visibility
+
+  - type: fill
+    template: |-
+      Thank you for creating a slash command! See
+      Here is the data you provided: {{data}}
+      And here is some information about the command: {{command}}
