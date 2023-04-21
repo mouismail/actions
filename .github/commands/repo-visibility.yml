@@ -25,6 +25,7 @@ steps:
     style: modal
     body:
       - type: dropdown
+        id: priority
         attributes:
           label: Priority
           options:
@@ -32,20 +33,29 @@ steps:
           - label: "⚠️ Important"
           - label: "💥 Emergency"
       - type: input
+        id: org
         attributes:
           label: org
           format: text
       - type: input
+        id: repo
         attributes:
           label: repo
           format: text
       - type: textarea
+        id: justification
         attributes:
-          label: justification
+          label: Justification
           placeholder: justification for changing the repository visibility
-
   - type: fill
     template: |-
-      Thank you for creating a slash command! See
-      Here is the data you provided: {{data}}
-      And here is some information about the command: {{command}}
+      Thank you for creating request to change {{org}}/{{repo}} to {{visibility}}.
+      Here is the data you provided:
+
+      ### Oragnization: {{org}}
+      ### Repository: {{repo}}
+      ### Visibility: {{visibility}}
+      ### Priority: {{priority}}
+      ### Justification: {{justification}}
+
+      We will review your request and get back to you as soon as possible.
