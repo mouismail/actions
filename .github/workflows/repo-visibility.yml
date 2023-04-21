@@ -23,11 +23,17 @@ jobs:
 
     - name: Check if comment is valid
       run: |
-        if echo "${{ github.event.comment.body }}" | grep -Eq '^(\\*\\*Private\\*\\*|\\*\\*Internal\\*\\*|\\*\\*Public\\*\\*)$'; then
-          echo "Valid comment"
-          echo "::set-output name=status::${{ github.event.comment.body }}"
+        if echo "The request to change the repository visibility has been reviewed as following:
+          - **Request visibility**: Private
+          - **Status**: <0001f7e2> Approved
+          - **Justification**: " | grep -iq '<0001f7e2> Approved'; then
+            echo "Valid comment"
+            echo "::set-output name=status::The request to change the repository visibility has been reviewed as following:
+          - **Request visibility**: Private
+          - **Status**: <0001f7e2> Approved
+          - **Justification**: "
         else
-          echo "Invalid comment"
+            echo "Invalid comment"
         fi
       id: check_comment
 
