@@ -1,0 +1,74 @@
+name: Repo Status Change Request
+
+on:
+  issue_comment:
+    types:
+      - created
+
+env:
+  REPO_NAME: "your-repo-name" # Replace with your actual repo name
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Required for GitHub API calls
+
+jobs:
+  repo_status_change:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get issue information
+      id: get_issue_info
+      run: |
+        echo "::set-output name=sender::${{ github.event.sender.login }}"
+        echo "::set-output name=org::${{ github.event.repository.owner.login }}"
+        echo "::set-output name=repo::${{ github.event.repository.name }}"
+      if: github.event_name == 'issue_comment' && contains(github.event.comment.body, 'Repo Status Change Request')
+
+    - name: Check if comment is valid
+      run: |
+        if echo "${{ github.event.comment.body }}" | grep -Eq '^(private|internal|public)$'; then
+          echo "Valid comment"
+          echo "::set-output name=status::${{ github.event.comment.body }}"
+        else
+          echo "Invalid comment"
+        fi
+      id: check_comment
+
+    - name: Request status change
+      if: steps.check_comment.outputs.status != ''
+      run: |
+        status_change=${{ steps.check_comment.outputs.status }}
+        current_status=$(curl -s -H "Authorization: token ${{ env.GITHUB_TOKEN }}" \
+                          https://api.github.com/repos/${{ env.REPO_NAME }} | jq -r '.visibility')
+        echo "Current status: $current_status"
+        echo "Requested status change: $status_change"
+        if [[ "$status_change" == "public" && "$current_status" != "public" ]]; then
+          echo "Requesting status change to public"
+          # Add your own approval logic here, e.g. by using a label or a specific team
+          # to indicate approval. You can also send notifications to relevant parties.
+        elif [[ "$status_change" == "internal" && "$current_status" != "internal" ]]; then
+          echo "Requesting status change to internal"
+          # Add your own approval logic here
+        elif [[ "$status_change" == "private" && "$current_status" != "private" ]]; then
+          echo "Requesting status change to private"
+          # Add your own approval logic here
+        fi
+      id: request_change
+
+    - name: Add request status
+      if: steps.check_comment.outputs.status != ''
+      run: |
+        status_change=${{ steps.check_comment.outputs.status }}
+        requested_status=$(echo "$status_change" | tr '[:lower:]' '[:upper:]')
+        echo "Setting requested status: $requested_status"
+        # Update the issue comment with the requested status
+        echo "Requested status change to $status_change" \
+          | gh issue comment ${{ github.event.comment.issue_url }} \
+              --body -
+
+    - name: Handle approval
+      if: steps.check_comment.outputs.status != '' && steps.request_change.completed
+      run: |
+        status_change=${{ steps.check_comment.outputs.status }}
+        requested_status=$(echo "$status_change" | tr '[:lower:]' '[:upper:]')
+        echo "Handling approval for $requested_status status change"
+        # Add your own logic here to handle approval, e.g. by updating the repo status
+        # using the GitHub API or by triggering other actions.
