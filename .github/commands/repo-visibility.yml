@@ -2,7 +2,7 @@
 # https://docs.github.com/en/early-access/github/save-time-with-slash-commands/syntax-for-user-defined-slash-commands
 ---
 trigger: approve
-title: Change Repository Visibility
+title: review change request
 # Works everywhere by default. Uncomment to limit it to certain surfaces.
 surfaces:
   - issue
