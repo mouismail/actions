@@ -1,21 +1,54 @@
----
-name: Change Repository Visibility
-about: Issue to create a request to change repository visibility
-title: Change visibility for {org}/{repo}
-labels: enhancement
-assignees: mouismail
+name: Private Beta Nomination - GEI migrations from BitBucket Server
+description: Nomination form for customers interested in migrating from BitBucket Server to GHEC using GEI tool
+title: "[Change Repository Visibility]: organization_name/repository_name"
+labels: ["triage","governance"]
+assignees:
+  - timrogers
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **View the [governance guide](#) for this request**
+        
+  - type: checkboxes
+    id: current_visibility
+    attributes:
+      label: What's the repository current visibility?
+      options:
+        - label: 'Private'
+        - label: 'Internal'
+        - label: 'Public'
+    validations:
+        required: true
 
----
-
-## Request Details
-
-
-### Organisation: {org}
-
-### Repository: {repo}
-
-### New Repo Visibility: {visibility}
-
-### Priority: {priority}
-
-### Justification: {justification}
+  - type: checkboxes
+    id: new_visibility
+    attributes:
+      label: What's the repository new visibility?
+      options:
+        - label: 'Private'
+        - label: 'Internal'
+        - label: 'Public'
+    validations:
+        required: true
+  - type: input
+    id: repo
+    attributes:
+      label: What is the repository's name?
+      placeholder: Respoitory Name
+    validations:
+        required: true     
+  - type: input
+    id: org
+    attributes:
+      label: What is the organization's name?
+      placeholder: Organization Name
+    validations:
+        required: true
+  - type: textarea
+    id: justification
+    attributes:
+      label: What is the justification for this change?
+      placeholder: justification
+    validations:
+        required: true
