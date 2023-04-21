@@ -4,6 +4,9 @@ on:
   issue_comment:
     types:
       - created
+  issues:
+    types:
+      - created
 
 env:
   REPO_NAME: "your-repo-name" # Replace with your actual repo name
