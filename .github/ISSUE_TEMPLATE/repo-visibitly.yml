@@ -1,5 +1,5 @@
-name: Private Beta Nomination - GEI migrations from BitBucket Server
-description: Nomination form for customers interested in migrating from BitBucket Server to GHEC using GEI tool
+name: Change Repository Visibility
+description: Issue to request a change in repository visibility
 title: "[Change Repository Visibility]: organization_name/repository_name"
 labels: ["triage","governance"]
 assignees:
