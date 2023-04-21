@@ -1,7 +1,7 @@
 # Learn more about the syntax here:
 # https://docs.github.com/en/early-access/github/save-time-with-slash-commands/syntax-for-user-defined-slash-commands
 ---
-trigger: repo_visibility
+trigger: approve
 title: Change Repository Visibility
 # Works everywhere by default. Uncomment to limit it to certain surfaces.
 surfaces:
@@ -25,23 +25,13 @@ steps:
     style: modal
     body:
       - type: dropdown
-        id: priority
+        id: status
         attributes:
           label: Priority
           options:
-          - label: "🟢 Normal"
-          - label: "⚠️ Important"
-          - label: "💥 Emergency"
-      - type: input
-        id: org
-        attributes:
-          label: org
-          format: text
-      - type: input
-        id: repo
-        attributes:
-          label: repo
-          format: text
+          - label: "🟢 Approve"
+          - label: "🔴 Rejected"
+          - label: "🟡 Requsted for more details"
       - type: textarea
         id: justification
         attributes:
@@ -49,13 +39,6 @@ steps:
           placeholder: justification for changing the repository visibility
   - type: fill
     template: |-
-      Thank you for creating request to change {{org}}/{{repo}} to {{visibility}}.
-      Here is the data you provided:
-
-      ### Oragnization: {{org}}
-      ### Repository: {{repo}}
-      ### Visibility: {{visibility}}
-      ### Priority: {{priority}}
-      ### Justification: {{justification}}
-
-      We will review your request and get back to you as soon as possible.
+      Requested has been reviewed by @mouismail and the request has been {{ data.status }} 
+      ### Justification
+      {{ data.justification }}
