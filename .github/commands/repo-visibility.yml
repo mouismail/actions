@@ -37,6 +37,6 @@ steps:
           placeholder: justification for changing the repository visibility
   - type: fill
     template: |-
-      The request to change the repo to `{{ data.visibility }}` has been reviewed by @mouismail and the request has been `{{ data.status }}`
+      The request to change the repo to **{{ data.visibility }}** has been reviewed by @mouismail and the request has been **{{ data.status }}**
       ### Justification
       {{ data.Justification }}
