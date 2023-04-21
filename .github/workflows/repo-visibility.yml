@@ -27,7 +27,7 @@ jobs:
 
     - name: Check if comment is valid
       run: |
-        if echo "${{ github.event.comment.body }}" | grep -Eq '^(private|internal|public)$'; then
+        if echo "${{ github.event.comment.body }}" | grep -Eq '^(Private|Internal|Public)$'; then
           echo "Valid comment"
           echo "::set-output name=status::${{ github.event.comment.body }}"
         else
