@@ -12,13 +12,14 @@ jobs:
         volumes:
           - my-volume:/data
     steps:
+      - name: Create file in /data directory
+        run: echo "Hello, world!" > /data/file1.txt
+    
       - name: Upload files
         uses: actions/upload-artifact@v2
         with:
           name: my-artifact
           path: /data
-          entrypoint: sh
-          args: -c chown -R nobody:nobody /data
 
   job2:
     runs-on: ubuntu-latest
@@ -34,8 +35,6 @@ jobs:
         with:
           name: my-artifact
           path: /data-download
-          entrypoint: sh
-          args: -c chown -R nobody:nobody /data
 
   job3:
     runs-on: ubuntu-latest
@@ -44,4 +43,3 @@ jobs:
       - name: Print downloaded files
         run: |
           cat /data-download/file1.txt
-          cat /data-download/file2.txt
