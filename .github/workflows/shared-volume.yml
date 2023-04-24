@@ -17,7 +17,7 @@ jobs:
         with:
           name: my-artifact
           path: /data
-          enterypint: sh
+          entrypoint: sh
           args: -c chown -R nobody:nobody /data
 
   job2:
@@ -34,7 +34,7 @@ jobs:
         with:
           name: my-artifact
           path: /data-download
-          enterypint: sh
+          entrypoint: sh
           args: -c chown -R nobody:nobody /data
 
   job3:
