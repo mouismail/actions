@@ -9,7 +9,6 @@ jobs:
     services:
       my-service:
         image: busybox
-        command: sh -c "chown -R nobody:nobody /data && echo 'Hello' > /data/file1.txt && echo 'World' > /data/file2.txt"
         volumes:
           - my-volume:/data
     steps:
@@ -18,6 +17,8 @@ jobs:
         with:
           name: my-artifact
           path: /data
+          enterypint: sh
+          args: -c chown -R nobody:nobody /data
 
   job2:
     runs-on: ubuntu-latest
@@ -25,7 +26,6 @@ jobs:
     services:
       my-service:
         image: busybox
-        command: sh -c "chown -R nobody:nobody /data && cat /data/file1.txt && cat /data/file2.txt"
         volumes:
           - my-volume:/data
     steps:
@@ -34,6 +34,8 @@ jobs:
         with:
           name: my-artifact
           path: /data-download
+          enterypint: sh
+          args: -c chown -R nobody:nobody /data
 
   job3:
     runs-on: ubuntu-latest
