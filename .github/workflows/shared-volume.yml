@@ -9,8 +9,7 @@ jobs:
     services:
       my-service:
         image: busybox
-        entrypoint: sh
-        command: -c "chown -R nobody:nobody /data && echo 'Hello' > /data/file1.txt && echo 'World' > /data/file2.txt"
+        command: sh -c "chown -R nobody:nobody /data && echo 'Hello' > /data/file1.txt && echo 'World' > /data/file2.txt"
         volumes:
           - my-volume:/data
     steps:
@@ -26,8 +25,7 @@ jobs:
     services:
       my-service:
         image: busybox
-        entrypoint: sh
-        command: -c "chown -R nobody:nobody /data && cat /data/file1.txt && cat /data/file2.txt"
+        command: sh -c "chown -R nobody:nobody /data && cat /data/file1.txt && cat /data/file2.txt"
         volumes:
           - my-volume:/data
     steps:
