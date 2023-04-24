@@ -12,9 +12,11 @@ jobs:
         volumes:
           - my-volume:/data
     steps:
+      - name: Change permissions
+        run: |
+          chmod 777 /data
       - name: Create file in /data directory
         run: echo "Hello, world!" > /data/file1.txt
-    
       - name: Upload files
         uses: actions/upload-artifact@v2
         with:
